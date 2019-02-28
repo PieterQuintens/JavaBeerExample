@@ -1,9 +1,6 @@
 package be.pxl.student;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,14 +38,25 @@ public class App {
 
 	public List<String> getBeerNames() throws SQLException {
 		List<String> beerNames = new ArrayList<>();
-
 		String queryString = "select * from Beers;";
 		try (ResultSet resultSet = getConnection().createStatement().executeQuery(queryString)) {
 			while (resultSet.next()) {
 				beerNames.add(resultSet.getString("Name"));
 			}
 		}
-
 		return beerNames;
+	}
+
+	public float getBeerPrice(String beerName) throws SQLException {
+		try(ResultSet resultSet = getConnection().createStatement().executeQuery("Select Price from Beers where name='"+beerName+"'")) {
+			resultSet.first();
+			return resultSet.getFloat(1);
+		}
+	}
+
+	public int updateBeerPrice(String beerName, float price) throws SQLException {
+		try(Statement stmt = getConnection().createStatement()){
+			return stmt.executeUpdate("update Beers set price="+price+ " where Name='"+beerName+"'");
+		}
 	}
 }

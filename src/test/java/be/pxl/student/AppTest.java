@@ -55,4 +55,16 @@ public class AppTest {
 		List<String> beers = app.getBeerNames();
 		Assert.assertFalse(beers.isEmpty());
 	}
+
+	@Test
+	public void should_get_price_jupiler_2_55() throws SQLException {
+		Assert.assertEquals(2.55f,app.getBeerPrice("Jupiler"), 0.01f);
+	}
+
+	@Test
+	public void should_update_price_jupiler() throws SQLException {
+		String beerName = "Jupiler";
+		app.updateBeerPrice(beerName, 3.0f);
+		Assert.assertEquals(3.0f,app.getBeerPrice(beerName), 0.01f);
+	}
 }
