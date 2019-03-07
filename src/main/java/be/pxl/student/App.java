@@ -14,12 +14,19 @@ public class App {
 	String username;
 	String password;
 
+	String jdbcUrl;
+
 	public App(String servername, String databasename, String username, String password) {
 		this.servername = servername;
 		this.databasename = databasename;
 		this.username = username;
 		this.password = password;
 	}
+
+	public App(String jdbcUrl) {
+		this.jdbcUrl = jdbcUrl;
+	}
+
 
 	public String sayHello() {
 		return "Hello";
@@ -33,7 +40,7 @@ public class App {
 	}
 
 	public Connection getConnection() throws SQLException {
-		return DriverManager.getConnection(createJdbcUrl(servername, databasename), username, password);
+		return DriverManager.getConnection(jdbcUrl, username, password);
 	}
 
 	public List<String> getBeerNames() throws SQLException {

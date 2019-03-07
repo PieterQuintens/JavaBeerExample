@@ -19,7 +19,8 @@ public class AppTest {
 
 	@Before
 	public void setUp() throws Exception {
-		app = new App("192.168.33.22", "StudentDB", "admin", "admin");
+//		app = new App("192.168.33.22", "StudentDB", "admin", "admin");
+		app = new App("jdbc:h2:mem:test;INIT=RUNSCRIPT FROM 'classpath:StudentDB.sql';MODE=MySQL");
 	}
 
 	@Test
